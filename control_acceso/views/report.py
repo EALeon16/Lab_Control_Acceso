@@ -47,3 +47,16 @@ class GenerarHorario(models.AbstractModel):
             "lab":lab,
         }
         return docargs
+    
+
+class ReporteIntentoIngreso(models.AbstractModel):
+    _name = "report.control_acceso_registrointentoasistencia.report_registrointentoasistencia"
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        print("ingresa despues de la funcion")
+        docs = self.env["controlacceso.registrointentoasistencia"].browse(docids)
+        docargs = {
+            "docs": docs,
+        }
+        return docargs

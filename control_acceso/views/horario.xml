@@ -3,7 +3,7 @@
 <record id="horario_reporte" model="ir.actions.report">
 <field name="name">Descargar horario</field>
 <field name="model">controlacceso.horario2</field>
-<field name="report_type">qweb-pdf</field>
+<field name="report_type">qweb-html</field>
 <field name="report_name">control_acceso.report_horario</field>
 <field name="report_file">control_acceso.report_horario</field>
 <field name="binding_model_id" ref="control_acceso.model_controlacceso_horario2"></field>
@@ -25,7 +25,7 @@
 
 
 <div clas="page">
- <div style="font-family: 'Open Sans', sans-serif; font-size: 16pt;
+ <div style="font-family: 'Open Sans', sans-serif; font-size: 10pt;
                                 color: #000000">
 <xpath expr="." position="inside">
 
@@ -102,7 +102,7 @@ th {
             </xpath>
 <div class="tab-content" id="nav-tabContent" t-foreach="request.env['controlacceso.lab'].search([])" t-as="lab">
 <center>
-<h1>Horario de Laboratorio <t t-esc="lab.name"/></h1>
+<h2>Horario de Laboratorio <t t-esc="lab.nombre_lab"/></h2>
 
 </center>
 <table class="table table-striped" id="tablets">
@@ -122,29 +122,29 @@ th {
                 <td><!--Lunes-->
                 <p t-foreach="docs" t-as="hdata">
 
-                <p t-if="hdata.lunes.name  and hdata.hora_inicio == '07:30' and hdata.laboratorio_id.id == lab.id"><t t-esc="hdata.lunes.name"/></p>
+                <p t-if="hdata.lunes.name  and hdata.inicio == '07:30' and hdata.laboratorio_id.id == lab.id"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.lunes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </td>
                 <td><!-- Martes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.martes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '07:30' or hdata.hora_fin == '08:30' or hdata.hora_inicio >= '07:30'   and hdata.hora_fin &lt;='08:30'"><t t-esc="hdata.martes.name"/></p>
+                <p t-if="hdata.inicio == '07:30' or hdata.fin == '08:30' or hdata.inicio >= '07:30'   and hdata.fin &lt;='08:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.martes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Miercoles -->
                 <p t-foreach="docs" t-as="hdata">
-                <p t-if="hdata.miercoles.name and hdata.hora_inicio == '07:30' and hdata.laboratorio_id.id == lab.id"><t t-esc="hdata.miercoles.name"/></p>
+                <p t-if="hdata.miercoles.name and hdata.inicio == '07:30' and hdata.laboratorio_id.id == lab.id"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.miercoles.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </td>
                 <td><!-- Jueves -->
                 <p t-foreach="docs" t-as="hdata">
-                <p t-if="hdata.jueves.name and hdata.hora_inicio == '07:30' and hdata.laboratorio_id.id == lab.id "><t t-esc="hdata.jueves.name"/></p>
+                <p t-if="hdata.jueves.name and hdata.inicio == '07:30' and hdata.laboratorio_id.id == lab.id "><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.jueves.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </td>
                 <td><!-- Viernes -->
                 <p t-foreach="docs" t-as="hdata">
-                <p t-if="hdata.viernes.name and hdata.hora_inicio == '07:30' and hdata.laboratorio_id.id == lab.id"><t t-esc="hdata.viernes.name"/></p>
+                <p t-if="hdata.viernes.name and hdata.inicio == '07:30' and hdata.laboratorio_id.id == lab.id"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.viernes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </td>
             </tr>
@@ -153,7 +153,7 @@ th {
                 <td>
                <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.lunes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '08:30' or hdata.hora_fin == '09:30' or hdata.hora_inicio &lt;= '08:30'   and hdata.hora_fin >='09:30'"><t t-esc="hdata.lunes.name"/></p>
+                <p t-if="hdata.inicio == '08:30' or hdata.fin == '09:30' or hdata.inicio &lt;= '08:30'   and hdata.fin >='09:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.lunes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -161,28 +161,28 @@ th {
                 <td><!-- Martes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.martes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '08:30' or hdata.hora_fin == '09:30' or hdata.hora_inicio &lt;= '08:30'   and hdata.hora_fin >='09:30'"><t t-esc="hdata.martes.name"/></p>
+                <p t-if="hdata.inicio == '08:30' or hdata.fin == '09:30' or hdata.inicio &lt;= '08:30'   and hdata.fin >='09:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.martes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Miercoles -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.miercoles.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '08:30' or hdata.hora_fin == '09:30' or hdata.hora_inicio &lt;= '08:30'   and hdata.hora_fin >='09:30'"><t t-esc="hdata.miercoles.name"/></p>
+                <p t-if="hdata.inicio == '08:30' or hdata.fin == '09:30' or hdata.inicio &lt;= '08:30'   and hdata.fin >='09:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.miercoles.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Jueves -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.jueves.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '08:30' or hdata.hora_fin == '09:30' or hdata.hora_inicio &lt;= '08:30'   and hdata.hora_fin >='09:30'"><t t-esc="hdata.jueves.name"/></p>
+                <p t-if="hdata.inicio == '08:30' or hdata.fin == '09:30' or hdata.inicio &lt;= '08:30'   and hdata.fin >='09:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.jueves.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Viernes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.viernes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '08:30' or hdata.hora_fin == '09:30' or hdata.hora_inicio &lt;= '08:30'   and hdata.hora_fin >='09:30'"><t t-esc="hdata.viernes.name"/></p>
+                <p t-if="hdata.inicio == '08:30' or hdata.fin == '09:30' or hdata.inicio &lt;= '08:30'   and hdata.fin >='09:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.viernes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -193,35 +193,35 @@ th {
                 <td><!-- Lunes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.lunes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '09:30' or hdata.hora_fin == '10:30' or hdata.hora_inicio &lt;= '09:30'   and hdata.hora_fin >='10:30'"><t t-esc="hdata.lunes.name"/></p>
+                <p t-if="hdata.inicio == '09:30' or hdata.fin == '10:30' or hdata.inicio &lt;= '09:30'   and hdata.fin >='10:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.lunes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 <!---->
                 <td><!-- Martes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.martes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '09:30' or hdata.hora_fin == '10:30' or hdata.hora_inicio &lt;= '09:30'   and hdata.hora_fin >='10:30'"><t t-esc="hdata.martes.name"/></p>
+                <p t-if="hdata.inicio == '09:30' or hdata.fin == '10:30' or hdata.inicio &lt;= '09:30'   and hdata.fin >='10:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.martes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Miercoles -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.miercoles.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '09:30' or hdata.hora_fin == '10:30' or hdata.hora_inicio &lt;= '09:30'   and hdata.hora_fin >='10:30'"><t t-esc="hdata.miercoles.name"/></p>
+                <p t-if="hdata.inicio == '09:30' or hdata.fin == '10:30' or hdata.inicio &lt;= '09:30'   and hdata.fin >='10:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.miercoles.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Jueves -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.jueves.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '09:30' or hdata.hora_fin == '10:30' or hdata.hora_inicio &lt;= '09:30'   and hdata.hora_fin >='10:30'"><t t-esc="hdata.jueves.name"/></p>
+                <p t-if="hdata.inicio == '09:30' or hdata.fin == '10:30' or hdata.inicio &lt;= '09:30'   and hdata.fin >='10:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.jueves.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Viernes funkaaaaaaaaaaaaaaaaaa-->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.viernes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '09:30' or hdata.hora_fin == '10:30' or hdata.hora_inicio &lt;= '09:30'   and hdata.hora_fin >='10:30'"><t t-esc="hdata.viernes.name"/></p>
+                <p t-if="hdata.inicio == '09:30' or hdata.fin == '10:30' or hdata.inicio &lt;= '09:30'   and hdata.fin >='10:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.viernes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -234,7 +234,7 @@ th {
                 <td><!-- Lunes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.lunes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '10:30' or hdata.hora_fin == '11:30' or hdata.hora_inicio &lt;= '10:30'   and hdata.hora_fin >='11:30'"><t t-esc="hdata.lunes.name"/></p>
+                <p t-if="hdata.inicio == '10:30' or hdata.fin == '11:30' or hdata.inicio &lt;= '10:30'   and hdata.fin >='11:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.lunes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -242,28 +242,28 @@ th {
                 <td><!-- Martes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.martes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '10:30' or hdata.hora_fin == '11:30' or hdata.hora_inicio &lt;= '10:30'   and hdata.hora_fin >='11:30'"><t t-esc="hdata.martes.name"/></p>
+                <p t-if="hdata.inicio == '10:30' or hdata.fin == '11:30' or hdata.inicio &lt;= '10:30'   and hdata.fin >='11:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.martes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Miercoles -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.miercoles.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '10:30' or hdata.hora_fin == '11:30' or hdata.hora_inicio &lt;= '10:30'   and hdata.hora_fin >='11:30'"><t t-esc="hdata.miercoles.name"/></p>
+                <p t-if="hdata.inicio == '10:30' or hdata.fin == '11:30' or hdata.inicio &lt;= '10:30'   and hdata.fin >='11:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.miercoles.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Jueves -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.jueves.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '10:30' or hdata.hora_fin == '11:30' or hdata.hora_inicio &lt;= '10:30'   and hdata.hora_fin >='11:30'"><t t-esc="hdata.jueves.name"/></p>
+                <p t-if="hdata.inicio == '10:30' or hdata.fin == '11:30' or hdata.inicio &lt;= '10:30'   and hdata.fin >='11:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.jueves.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Viernes -->
                <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.viernes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '10:30' or hdata.hora_fin == '11:30' or hdata.hora_inicio &lt;= '10:30'   and hdata.hora_fin >='11:30'"><t t-esc="hdata.viernes.name"/></p>
+                <p t-if="hdata.inicio == '10:30' or hdata.fin == '11:30' or hdata.inicio &lt;= '10:30'   and hdata.fin >='11:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.viernes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -276,7 +276,7 @@ th {
                 <td><!-- Lunes -->
                  <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.lunes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '11:30' or hdata.hora_fin == '12:30' or hdata.hora_inicio &lt;= '11:30'   and hdata.hora_fin >='12:30'"><t t-esc="hdata.lunes.name"/></p>
+                <p t-if="hdata.inicio == '11:30' or hdata.fin == '12:30' or hdata.inicio &lt;= '11:30'   and hdata.fin >='12:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.lunes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -284,28 +284,28 @@ th {
                 <td><!-- Martes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.martes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '11:30' or hdata.hora_fin == '12:30' or hdata.hora_inicio >= '11:30' and hdata.hora_fin &lt;='12:30' or hdata.hora_fin > '11:30' or hdata.hora_fin > '12:30'"><t t-esc="hdata.martes.name"/></p>
+                <p t-if="hdata.inicio == '11:30' or hdata.fin == '12:30' or hdata.inicio >= '11:30' and hdata.fin &lt;='12:30' or hdata.fin > '11:30' or hdata.fin > '12:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.martes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Miercoles -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.miercoles.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '11:30' or hdata.hora_fin == '12:30' or hdata.hora_inicio &lt;= '11:30'   and hdata.hora_fin >='12:30'"><t t-esc="hdata.miercoles.name"/></p>
+                <p t-if="hdata.inicio == '11:30' or hdata.fin == '12:30' or hdata.inicio &lt;= '11:30'   and hdata.fin >='12:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.miercoles.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Jueves -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.jueves.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '11:30' or hdata.hora_fin == '12:30' or hdata.hora_inicio &lt;= '11:30'   and hdata.hora_fin >='12:30'"><t t-esc="hdata.jueves.name"/></p>
+                <p t-if="hdata.inicio == '11:30' or hdata.fin == '12:30' or hdata.inicio &lt;= '11:30'   and hdata.fin >='12:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.jueves.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Viernes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.viernes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '11:30' or hdata.hora_fin == '12:30' or hdata.hora_inicio &lt;= '11:30'   and hdata.hora_fin >='12:30'"><t t-esc="hdata.viernes.name"/></p>
+                <p t-if="hdata.inicio == '11:30' or hdata.fin == '12:30' or hdata.inicio &lt;= '11:30'   and hdata.fin >='12:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.viernes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -317,7 +317,7 @@ th {
                 <td><!-- Lunes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.lunes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '12:30' or hdata.hora_fin == '13:30' or hdata.hora_inicio &lt;= '12:30'   and hdata.hora_fin >='13:30'"><t t-esc="hdata.lunes.name"/></p>
+                <p t-if="hdata.inicio == '12:30' or hdata.fin == '13:30' or hdata.inicio &lt;= '12:30'   and hdata.fin >='13:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.lunes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -326,27 +326,27 @@ th {
                 <td><!-- Martes -->
                <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.martes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '12:30' or hdata.hora_fin == '13:30' or hdata.hora_inicio >= '12:30' and hdata.hora_fin &lt;='13:30' or hdata.hora_fin > '12:30' or hdata.hora_fin > '13:30'"><t t-esc="hdata.martes.name"/></p>
+                <p t-if="hdata.inicio == '12:30' or hdata.fin == '13:30' or hdata.inicio >= '12:30' and hdata.fin &lt;='13:30' or hdata.fin > '12:30' or hdata.fin > '13:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.martes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Miercoles -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.miercoles.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '12:30' or hdata.hora_fin == '13:30' or hdata.hora_inicio &lt;= '12:30'   and hdata.hora_fin >='13:30'"><t t-esc="hdata.miercoles.name"/></p>
+                <p t-if="hdata.inicio == '12:30' or hdata.fin == '13:30' or hdata.inicio &lt;= '12:30'   and hdata.fin >='13:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.miercoles.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
                 <td><!-- Jueves -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.jueves.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '12:30' or hdata.hora_fin == '13:30' or hdata.hora_inicio &lt;= '12:30'   and hdata.hora_fin >='13:30'"><t t-esc="hdata.jueves.name"/></p>
+                <p t-if="hdata.inicio == '12:30' or hdata.fin == '13:30' or hdata.inicio &lt;= '12:30'   and hdata.fin >='13:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.jueves.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p></td>
                 <td><!-- Viernes -->
                 <p t-foreach="docs" t-as="hdata">
                 <p t-if="hdata.viernes.name and hdata.laboratorio_id.id == lab.id">
-                <p t-if="hdata.hora_inicio == '12:30' or hdata.hora_fin == '13:30' or hdata.hora_inicio &lt;= '12:30'   and hdata.hora_fin >='13:30'"><t t-esc="hdata.viernes.name"/></p>
+                <p t-if="hdata.inicio == '12:30' or hdata.fin == '13:30' or hdata.inicio &lt;= '12:30'   and hdata.fin >='13:30'"><t t-esc="hdata.docente_id.name.name"/><br/><t t-esc="hdata.viernes.name"/><br/>(<t t-esc="hdata.curso_id.name"/>)</p>
 				</p>
                 </p>
                 </td>
@@ -367,7 +367,7 @@ th {
     <field name="format">custom</field>
     <field name="page_height">80</field>
     <field name="page_width">175</field>
-    <field name="orientation">Portrait</field>
+    <field name="orientation">Landscape</field>
     <field name="margin_top">3</field>
     <field name="margin_bottom">3</field>
     <field name="margin_left">3</field>
@@ -376,5 +376,11 @@ th {
     <field name="header_spacing">3</field>
     <field name="dpi">80</field>
 </record>
+
+
+
+
+
+
 </data>
 </odoo>

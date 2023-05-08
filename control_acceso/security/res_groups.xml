@@ -5,7 +5,7 @@
     <record id="res_groups_administrador" model="res.groups">
         <field name="name">Administrador</field>
         <field name="category_id" ref="control_acceso.module_control_acceso"/>
-        <field name="users" eval="[(4, ref('base.group_system'))]"/>
+      <!--  <field name="users" eval="[(4, ref('base.group_system'))]"/>-->
     </record>
 
     <record id="res_groups_docentes" model="res.groups">
@@ -16,5 +16,6 @@
     <record id="res_groups_alumnos" model="res.groups">
         <field name="name">Alumnos</field>
         <field name="category_id" ref="control_acceso.module_control_acceso"/>
+        <field name="users" eval="[(4, ref('base.group_system'))]"/>
     </record>
 </odoo>

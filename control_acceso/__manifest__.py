@@ -22,10 +22,12 @@
         'views/horario.xml',
         'views/report.xml',
         'views/reporte_practica.xml',
-        
+        'views/reporte_intento_ingreso.xml',
+        'data/cron.xml',
         
             
         
-    ]
+    ],
+    'images': ['static/description/icon.png'],
 
 }

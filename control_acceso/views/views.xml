@@ -43,26 +43,19 @@
   <field name="name">view.tree.horario2</field>
   <field name="model">controlacceso.horario2</field>
   <field name="arch" type="xml">
-    <tree>
-    <!--
-      <field name="hora_inicio"/>
-      <field name="hora_fin"/>
-      <field name="lunes"/>
-      <field name="martes"/>
-      <field name="miercoles"/>
-      <field name="jueves"/>
-      <field name="viernes"/>
-      <field name="curso_id"/>
-      <field name="laboratorio_id"/>
-    -->
 
-      <field name="hora_inicio" decoration-success="lunes" 
+       
+                 <tree >
+
+      <field name="docente_id"/>
+
+      <field name="inicio" decoration-success="lunes" 
       decoration-danger="martes" 
       decoration-info="miercoles"
       decoration-muted="jueves" 
       decoration-warning="viernes"  
       widget="badge"/>
-      <field name="hora_fin" decoration-success="lunes" 
+      <field name="fin" decoration-success="lunes" 
       decoration-danger="martes" 
       decoration-info="miercoles"
       decoration-muted="jueves" 
@@ -115,7 +108,12 @@
 
       <field name="docente_id"/>
         -->
+        
     </tree>
+    
+    
+   
+   
   </field>
   </record>
 
@@ -128,51 +126,50 @@
             <sheet>
                             
                             
-                            <group>
-                                <field  name="hora_inicio"/>
-                            </group>
-                            <group>
-                                <field name="hora_fin"/>
-                            </group>
+            <group>
+              <group>
+                  <field name="inicio" class="oe_inline" style="font-weight:bold; width:50%;"/>
+                  <field name="carrera_id" class="oe_inline" style="font-weight:bold; width:50%;"/>
+
+                  <field name="curso_id" domain="[('carrera_id', '=', carrera_id)]" style="font-weight:bold; width:50%;"/>
+                  <field name="periodo_id" style="font-weight:bold; width:50%;" />
+             
+              </group>
+              <group>
+                  <field name="fin" class="oe_inline" style="font-weight:bold; width:50%;"/>
+                  <field name="laboratorio_id" class="oe_inline" style="font-weight:bold; width:50%;"/>
+
+                  <field name="docente_id" style="font-weight:bold; width:35%;"/>
+             
+              </group>
+          </group>
                             
-                            <group>
-                                <field name="laboratorio_id"/>
-                            </group>
-                            <group>
-                                <field name="carrera_id"/>
-                            </group>
                             
-                            <group>
-                                <field name="curso_id" domain="[('carrera_id', '=', carrera_id)]"/>
-                            </group>
-                            <group>
-                                <field name="docente_id" />
-                            </group>
                             <group>
                                 <notebook string="Horario">
                                 <page string="lunes">
                                 <group>
-                                <field name="lunes" domain="[('carrera_id', '=', carrera_id)]"/>
+                                <field name="lunes" domain="[('carrera_id', '=', carrera_id)]" style="font-weight:bold; width:35%;"/>
                                 </group>
                                 </page>
                                 <page string="martes">
                                 <group>
-                                <field name="martes" domain="[('carrera_id', '=', carrera_id)]"/>
+                                <field name="martes" domain="[('carrera_id', '=', carrera_id)]" style="font-weight:bold; width:35%;"/>
                                 </group>
                                 </page>
                                 <page string="miercoles">
                                 <group>
-                                <field name="miercoles" domain="[('carrera_id', '=', carrera_id)]"/>
+                                <field name="miercoles" domain="[('carrera_id', '=', carrera_id)]" style="font-weight:bold; width:35%;"/>
                                 </group>
                                 </page>
                                 <page string="jueves">
                                 <group>
-                                <field name="jueves" domain="[('carrera_id', '=', carrera_id)]"/>
+                                <field name="jueves" domain="[('carrera_id', '=', carrera_id)]" style="font-weight:bold; width:35%;"/>
                                 </group>
                                 </page>
                                 <page string="viernes">
                                 <group>
-                                <field name="viernes" domain="[('carrera_id', '=', carrera_id)]"/>
+                                <field name="viernes" domain="[('carrera_id', '=', carrera_id)]" style="font-weight:bold; width:35%;"/>
                                 </group>
                                 </page>
                                 </notebook>
@@ -188,8 +185,11 @@
   <field name="name">Horario de Laboratorio</field>
   <field name="res_model">controlacceso.horario2</field>
   <field name="view_mode">tree,form</field>
+    <field name="domain">[('periodo_id.estado', '=', True)]</field>
+
   </record>
 <!--Fin venta principal y horario 2-->
+
 
 
 
@@ -213,10 +213,10 @@
                 <form>
                     <sheet>
                             <group>
-                                <field name="name"/>
+                                <field name="name" style="font-weight:bold; width:50%;"/>
                             </group>
                             <group>
-                                <field name="carrera_id"/>
+                                <field name="carrera_id" style="font-weight:bold; width:50%;"/>
                             </group>
                     </sheet>
 
@@ -250,10 +250,10 @@
                 <form>
                     <sheet>
                             <group>
-                                <field name="name"/>
+                                <field name="name" style="width:50%;"/>
                             </group>
                             <group>
-                                <field name="carrera_id"/>
+                                <field name="carrera_id" style="width:50%;"/>
                             </group>
                     </sheet>
 
@@ -266,57 +266,122 @@
   <field name="view_mode">tree,form</field>
   </record>
 <!--Fin Accion de ventana Materia-->
-
-<!--Accion de ventana Docente
-<record id ="view_tree_docente" model="ir.ui.view">
-  <field name="name">view.tree.docente</field>
-  <field name="model">controlacceso.docente</field>
+<!--Accion de ventana PeriodoAcademico-->
+<record id ="view_tree_periodoacademico" model="ir.ui.view">
+  <field name="name">view.tree.periodoacademico</field>
+  <field name="model">controlacceso.periodoacademico</field>
   <field name="arch" type="xml">
     <tree>
-      <field name="id"/>
-      <field name="cedula"/>
       <field name="name"/>
-      <field name="correo_docente"/>
-      <field name="id_tarjeta"/>
-      <field name="carrera_id"/>
+      <field name="fecha_inicio"/>
+      <field name="fecha_fin"/>
+      <field name="estado"/>
     </tree>
   </field>
   </record>
 
-  <record id="view_form_docente" model="ir.ui.view">
-            <field name="name">view.form.docente</field>
-            <field name="model">controlacceso.docente</field>
+  <record id="view_form_periodoacademico" model="ir.ui.view">
+            <field name="name">view.form.periodoacademico</field>
+            <field name="model">controlacceso.periodoacademico</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+            
                             <group>
-                                <field name="cedula"/>
+                                <field name="name" style="width:50%;"/>
                             </group>
                             <group>
-                                <field name="name"/>
+                                <field name="fecha_inicio" style="width:50%;"/>
                             </group>
                             <group>
-                                <field name="correo_docente"/>
-                            </group>
-                           
-                            <group>
-                                <field name="id_tarjeta"/>
+                                <field name="fecha_fin" style="width:50%;"/>
                             </group>
                             <group>
-                                <field name="carrera_id"/>
+                                <field name="estado" style="width:50%;"/>
                             </group>
-                            
                     </sheet>
+                     <sheet>
+        <field name="horario_ids" mode="tree">
+          
+ <tree>
+
+      <field name="docente_id"/>
+
+      <field name="inicio" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="fin" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="lunes" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="martes" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="miercoles" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="jueves" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="viernes" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="curso_id" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <field name="laboratorio_id" decoration-success="lunes" 
+      decoration-danger="martes" 
+      decoration-info="miercoles"
+      decoration-muted="jueves" 
+      decoration-warning="viernes"  
+      widget="badge"/>
+      <!--
+      <field name="carrera_id"/>
+
+      <field name="docente_id"/>
+        -->
+        
+    </tree>
+        </field>
+      </sheet>
 
                 </form>
             </field>
 </record>
- <record id="action_view_docente" model="ir.actions.act_window">
-  <field name="name">Docentezzzzzz</field>
-  <field name="res_model">controlacceso.docente</field>
+ <record id="action_view_periodoacademico" model="ir.actions.act_window">
+  <field name="name">Periodo Academico</field>
+  <field name="res_model">controlacceso.periodoacademico</field>
   <field name="view_mode">tree,form</field>
-  </record>-->
-<!--Fin Accion de ventana Docente-->
+  </record>
+<!--Fin Accion de ventana PeriodoAcademico-->
+
+
 
 <!--Accion de ventana Docente-->
 <record id ="view_tree_docenteUser" model="ir.ui.view">
@@ -324,11 +389,11 @@
   <field name="model">controlacceso.docente2</field>
   <field name="arch" type="xml">
     <tree>
-      
+      <field name="name"/>
       <field name="tarjeta"/>
       
       <field name="carrera_id"/>
-      <field name="name"/>
+      
     </tree>
   </field>
   </record>
@@ -340,15 +405,15 @@
                 <form>
                     <sheet>
                             <group>
-      <field name="tarjeta"/>
+                                <field name="tarjeta" style="width:50%;"/>
                             </group>
                             
                             <group>
-                                <field name="name" domain="[('groups_id.name', '=', 'Docentes')]"/>
+                                <field name="name" domain="[('groups_id.name', '=', 'Docentes')]" style="width:50%;"/>
                             </group>
                            
                             <group>
-                                <field name="carrera_id"/>
+                                <field name="carrera_id" style="width:50%;"/>
                             </group>
                             
                     </sheet>
@@ -362,56 +427,47 @@
   <field name="view_mode">tree,form</field>
   </record>
 <!--Fin Accion de ventana Docente-->
-
-<!--Accion de ventana Estudiante
-<record id ="view_tree_estudiante" model="ir.ui.view">
-  <field name="name">view.tree.estudiante</field>
-  <field name="model">controlacceso.estudiante</field>
+<!--Accion de ventana administrador-->
+<record id ="view_tree_administrador" model="ir.ui.view">
+  <field name="name">view.tree.administrador</field>
+  <field name="model">controlacceso.administrador</field>
   <field name="arch" type="xml">
     <tree>
-      
-      <field name="cedula"/>
       <field name="name"/>
-      <field name="id_tarjeta"/>
-      <field name="carrera_id"/>
-      <field name="curso_id"/>
+      <field name="tarjeta"/>
+      
+      
     </tree>
   </field>
   </record>
 
-  <record id="view_form_estudiante" model="ir.ui.view">
-            <field name="name">view.form.estudiante</field>
-            <field name="model">controlacceso.estudiante</field>
+  <record id="view_form_administrador" model="ir.ui.view">
+            <field name="name">view.form.administrador</field>
+            <field name="model">controlacceso.administrador</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                            <group>
+      <field name="tarjeta" style="width:50%;"/>
+                            </group>
                             
                             <group>
-                                <field name="cedula"/>
-                            </group>
-                            <group>
-                                <field name="name"/>
+                                <field name="name" domain="[('groups_id.name', '=', 'Administrador')]" style="width:50%;"/>
                             </group>
                            
-                            <group>
-                                <field name="id_tarjeta"/>
-                            </group>
-                            <group>
-                                <field name="carrera_id"/>
-                            </group>
-                            <group>
-                                <field name="curso_id" domain="[('carrera_id', '=', carrera_id)]"/>
-                            </group>
+                            
+                            
                     </sheet>
 
                 </form>
             </field>
 </record>
- <record id="action_view_estudiante" model="ir.actions.act_window">
-  <field name="name">Estudiantes</field>
-  <field name="res_model">controlacceso.estudiante</field>
+ <record id="action_view_administrador" model="ir.actions.act_window">
+  <field name="name">Administradores</field>
+  <field name="res_model">controlacceso.administrador</field>
   <field name="view_mode">tree,form</field>
-  </record>-->
+  </record>
+<!--Fin Accion de ventana Administrador-->
 <!--este debe funcionar-->
 <record id ="view_tree_usuarioestudiante" model="ir.ui.view">
   <field name="name">view.tree.usuarioestudiante</field>
@@ -421,7 +477,7 @@
       <field name="name"/>
       <field name="tarjeta"/>
       <field name="carrera_id"/>
-      <field name="curso_id"/>
+      <field name="cursos_asignados"/>
     </tree>
   </field>
   </record>
@@ -434,17 +490,17 @@
                     <sheet>
                             
                             <group>
-                                <field name="name"  domain="[('groups_id.name', '=', 'Alumnos')]"/>
+                                <field name="name"  domain="[('groups_id.name', '=', 'Alumnos')]" style="width:50%;"/>
                             </group>
                            
                             <group>
-                                <field name="tarjeta"/>
+                                <field name="tarjeta" style="width:50%;"/>
                             </group>
                             <group>
-                                <field name="carrera_id"/>
+                                <field name="carrera_id" style="width:50%;"/>
                             </group>
                             <group>
-                                <field name="curso_id" domain="[('carrera_id', '=', carrera_id)]"/>
+                                <field name="curso_id" domain="[('carrera_id', '=', carrera_id)]" style="width:50%;"/>
                             </group>
                             
                     </sheet>
@@ -467,6 +523,7 @@
   <field name="arch" type="xml">
     <tree>
       <field name="name"/>
+      <field name="nombre_lab"/>
      <field name="estado"/>
       <button name="botonconfirm" type="object" string="Abrir puerta" class="oe_highlight" context="{'active_id': name}"/>
     </tree>
@@ -481,7 +538,10 @@
                     <sheet>
                             
                             <group>
-                                <field name="name"/>
+                                <field name="name" style="width:50%;"/>
+                            </group>
+                            <group>
+                                <field name="nombre_lab" style="width:50%;"/>
                             </group>
                            
                             
@@ -519,41 +579,113 @@
 
 <!--FIN BOTON PARA PUERTAS-->
 <!--Accion de ventana Practicas-->
-  <record id ="view_tree_practicas" model="ir.ui.view">
+ <record id ="view_tree_practicas" model="ir.ui.view">
   <field name="name">view.tree.practicas</field>
   <field name="model">controlacceso.practica</field>
   <field name="arch" type="xml">
     <tree>
-      <field name="name" filter_domain="[('name', '=', 'Uso diario')]"/>
-      <field name="fecha" filter_domain="[('name', '=', 'Uso diario')]"/>
-      <field name="docente_id" filter_domain="[('name', '=', 'Uso diario')]"/>
-      <field name="lab_id" filter_domain="[('name', '=', 'Uso diario')]"/>
-      <field name="curso_id" filter_domain="[('name', '=', 'Uso diario')]"/>
+      <field name="name"/>
+
+      <field name="descripcion"/>
+      <field name="fecha"/>
+      <field name="docente_id"/>
+      <field name="lab_id"/>
+      <field name="curso_id"/>
+      <field name="materia_id"/>
+      <field name="periodo_id"/>
+    </tree>
+  </field>
+</record>
+<record id="view_form_practicas" model="ir.ui.view">
+  <field name="name">view.form.practicas</field>
+  <field name="model">controlacceso.practica</field>
+  <field name="arch" type="xml">
+    <form>
+      <sheet>
+        <group>
+          <field name="name" style="width:50%;"/>
+        </group>
+        <group>
+          <field name="fecha" string="Fecha (AA-MM-DD)" style="width:50%;"/>
+        </group>
+        <group>
+        </group>
+        <group>
+          <field name="lab_id" style="width:50%;"/>
+        </group>
+        <group>
+          <field name="curso_id" style="width:50%;"/>
+        </group>
+        <group>
+          <field name="materia_id" style="width:50%;"/>
+        </group>
+        <group>
+          <field name="periodo_id" style="width:50%;" domain="[('estado', '=', True)]"/>
+        </group>
+        <group>
+          <field name="descripcion" style="width:50%; height: 100px;"/>
+        </group>
+      </sheet>
+      <sheet>
+        <field name="resultados_practicas_ids" mode="tree">
+          <tree edit="false" create="false" no_open="true">
+            <field name="name"/>
+            <field name="estado"/>
+            <field name="estudiante_id"/>
+            <field name="materia_id"/>
+            <field name="periodo_id"/>
+            <field name="archivo" widget="download" groups="control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos,control_acceso.res_groups_administrador" />
+          </tree>
+        </field>
+      </sheet>
+    </form>
+  </field>
+</record>
+<record id="action_view_practicas" model="ir.actions.act_window">
+  <field name="name">Practicas</field>
+  <field name="res_model">controlacceso.practica</field>
+  <field name="view_mode">tree,form</field>
+</record>
+<!--Fin Accion de ventana Practicas-->
+<!--Accion de ventana Resultados-->
+  <record id ="view_tree_resultados_practicas" model="ir.ui.view">
+  <field name="name">view.tree.resultados_practicas</field>
+  <field name="model">controlacceso.resultados_practicas</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="name"/>
+      <field name="estado"/>
+      <field name="archivo" widget="download_link" groups="control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos" options='{"filename": "practica.pdf"}'/>
+      <field name="estudiante_id"/>
+      <field name="practica_id"/>
+      <field name="materia_id"/>
+      <field name="periodo_id"/>
     </tree>
   </field>
   </record>
-<record id="view_form_practicas" model="ir.ui.view">
-            <field name="name">view.form.practicas</field>
-            <field name="model">controlacceso.practica</field>
+<record id="view_form_resultados_practicas" model="ir.ui.view">
+            <field name="name">view.form.resultados_practicas</field>
+            <field name="model">controlacceso.resultados_practicas</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
                             <group>
-                                <field name="name"/>
+                            <field name="practica_id" style="width:70%;"/>
+                                
+                            </group>
+                            <group invisible="1">
+                            <field name="materia_id" style="width:70%;"/>
+                                
                             </group>
                             <group>
-                                <field name="fecha"/>
+                                <field name="estado" style="width:70%;"/>
                             </group>
-                           <!-- <group>
-                                <field name="docente_id"/>
-                            </group>-->
+                            <group>
+                                <field name="name" style="width:70%; height: 200px;"/>
+                            </group>
+                           
+                         
                             
-                            <group>
-                                <field name="lab_id"/>
-                            </group>
-                            <group>
-                                <field name="curso_id"/>
-                            </group>
                             
                             
                     </sheet>
@@ -561,12 +693,12 @@
                 </form>
             </field>
 </record>
-  <record id="action_view_practicas" model="ir.actions.act_window">
-  <field name="name">Practicas</field>
-  <field name="res_model">controlacceso.practica</field>
+  <record id="action_view_resultados_practicas" model="ir.actions.act_window">
+  <field name="name">Resultados</field>
+  <field name="res_model">controlacceso.resultados_practicas</field>
   <field name="view_mode">tree,form</field>
   </record>
-<!--Fin Accion de ventana Practicas-->
+<!--Fin Accion de ventana Resultados-->
 <!--Accion de ventana Practicas-->
   <record id ="view_tree_registroasistenica" model="ir.ui.view">
   <field name="name">view.tree.registroasistencia</field>
@@ -577,7 +709,6 @@
       <field name="hora_ingreso"/>
       <field name="fecha_ingreso"/>
       <field name="temperatura" />
-      <field name="tarjeta"/>
       <field name="curso_id"/>
       <field name="materia_id"/>
       <field name="lab_id" />
@@ -594,45 +725,63 @@
   <field name="view_mode">tree,form</field>
   </record>
 <!--Fin Accion de ventana Practicas-->
-<!---->
 
- <menuitem id="menu_horario"   name="Control de acceso" action="control_acceso.action_view_horario2" groups="base.group_system"/>
-  <menuitem id="menu_horario_docente"   name="Control de acceso" action="control_acceso.action_view_horario2" groups="control_acceso.res_groups_docentes"/>
-  <menuitem id="menu_horario_estudiante"   name="Control de acceso" action="control_acceso.action_view_horario2" groups="control_acceso.res_groups_alumnos"/>
+<!--Vista incicio de intento de ingresa-->
+<!--Accion de ventana Practicas-->
+  <record id ="view_tree_registroaintentosistenica" model="ir.ui.view">
+  <field name="name">view.tree.registrointentoasistencia</field>
+  <field name="model">controlacceso.registrointentoasistencia</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="name"/>
+      <field name="hora_ingreso"/>
+      <field name="fecha_ingreso"/>
+      <field name="tarjeta"/>
+      <field name="lab_id"/>
+    </tree>
+  </field>
+  </record>
+  <record id="action_view_registrointentoasistencia" model="ir.actions.act_window">
+  <field name="name">Registro Intento al laboratorio</field>
+  <field name="res_model">controlacceso.registrointentoasistencia</field>
+  <field name="view_mode">tree,form</field>
+  </record>
+
+
   
-<!--MENU DATOS CARRERA--> 
-  <menuitem id="menu_carrera_principal" name="Datos Carrera" parent="control_acceso.menu_horario"  />
-  <menuitem id="menu_ac" parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_ca"/>
-  <menuitem id="menu_curso"   parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_curso"  />
-  <menuitem id="menu_materia"   parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_materia" />
- <!--FIN MENU DATOS CARRERA--> 
-  
-   <!--MENU usuarios-->
-<menuitem id="menu_usuarios" name="Usuarios" parent="control_acceso.menu_horario"  />
-<!--<menuitem id="menu_docente" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_docente"  />-->
-<menuitem id="menu_docenteUser" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_docenteUser"  />
- <!-- <menuitem id="menu_estudiante" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_estudiante"  />-->
-  <menuitem id="menu_usuarioestudiante" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_usuarioestudiante"  />
-    <!--fin MENU USUARIOS-->
-<!--
-  <menuitem id="menu_docente" parent="control_acceso.menu_horario" action="control_acceso.action_view_docente"  />
-  <menuitem id="menu_estudiante" parent="control_acceso.menu_horario" action="control_acceso.action_view_estudiante"  />
-  -->
-  <!--MENU LABORATORIO--> 
-  <menuitem id="menu_lab_principal" name="Laboratorios" parent="control_acceso.menu_horario" />
-  <menuitem id="menu_lab" parent="control_acceso.menu_lab_principal" action="control_acceso.action_view_lab" />
-  <menuitem id="menu_practicas" parent="control_acceso.menu_lab_principal" action="control_acceso.action_view_practicas" />
-   <!--<menuitem id="menu_horario2"  parent="control_acceso.menu_lab_principal" name="Horario" action="control_acceso.action_view_horario2" />-->
-   <menuitem id="menu_registroasistencia"  parent="control_acceso.menu_lab_principal" name="Asistencia" action="control_acceso.action_view_registroasistencia" />
-   <!--FIN MENU LABORATORIO-->
-<!--Menu para usuarios docentes-->
- <menuitem id="menu_practtica_docente"   name="Practicas" parent="control_acceso.menu_horario_docente" action="control_acceso.action_view_practicas" groups="control_acceso.res_groups_docentes"/>
- <menuitem id="menu_registroasistencia_docente" parent="control_acceso.menu_horario_docente" name="Asistencias" action="control_acceso.action_view_registroasistencia" groups="control_acceso.res_groups_docentes" />
- <menuitem id="menu_asistencia_alumno"   name="Asistencia" parent="control_acceso.menu_horario_estudiante" action="control_acceso.action_view_registroasistencia" groups="control_acceso.res_groups_alumnos"/>
+<!--Vista fin de intento de inciico-->
+<menuitem id="menu_horario" name="Control de acceso" action="control_acceso.action_view_horario2" groups="base.group_system,res_groups_administrador,control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos"/>
+<menuitem id="menu_carrera_principal" name="Configuracion" parent="control_acceso.menu_horario" groups="base.group_system,res_groups_administrador"/>
+<menuitem id="menu_asistencias" name="Registros asistencias" parent="control_acceso.menu_horario" groups="base.group_system,res_groups_administrador,control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos"/>
+<!--menu carrera-->
+<menuitem id="menu_ac" parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_ca" groups="base.group_system,res_groups_administrador"/>
+<!--menu materia-->
+<menuitem id="menu_curso" parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_curso" groups="base.group_system,res_groups_administrador"/>
+<!--menu curso--> 
+<menuitem id="menu_materia" parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_materia" groups="base.group_system,res_groups_administrador"/>
+<menuitem id="menu_periodoacademico" parent="control_acceso.menu_carrera_principal" action="control_acceso.action_view_periodoacademico" groups="base.group_system,res_groups_administrador"/>
 
-<!--Menu registro asistencia-->
+<!--menu principal usuarios-->
+<menuitem id="menu_usuarios" name="Usuarios" parent="control_acceso.menu_horario" groups="base.group_system,res_groups_administrador"/>
+<!--menu alumnos-->
+<menuitem id="menu_usuarioestudiante" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_usuarioestudiante" groups="base.group_system,control_acceso.res_groups_alumnos,res_groups_administrador"/>
+<!--menu docentes-->
+<menuitem id="menu_docenteUser" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_docenteUser" groups="base.group_system,res_groups_administrador"/>
+<!--menu administradores-->
+<menuitem id="menu_administrador" parent="control_acceso.menu_usuarios" action="control_acceso.action_view_administrador" groups="base.group_system,res_groups_administrador"/>
+<!--menu principal asistencias-->
+<menuitem id="menu_lab_principal" name="Reportes" parent="control_acceso.menu_horario" groups="base.group_system,res_groups_administrador,control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos"/>
+<!--menu asistencia-->
+<menuitem id="menu_registroasistencia" parent="control_acceso.menu_lab_principal" name="Asistencias" action="control_acceso.action_view_registroasistencia" groups="base.group_system,control_acceso.res_groups_administrador,control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos"/>
+<menuitem id="menu_registrointentoasistencia" parent="control_acceso.menu_lab_principal" name="Intento Ingreso" action="control_acceso.action_view_registrointentoasistencia" groups="base.group_system,control_acceso.res_groups_administrador"/>
 
-
+<!--menu practicas-->
+<menuitem id="menu_practicas" parent="control_acceso.menu_lab_principal" action="control_acceso.action_view_practicas" groups="base.group_system,res_groups_administrador,control_acceso.res_groups_docentes,control_acceso.res_groups_alumnos"/>
+<!--menu practicas-->
+<menuitem id="menu_resultados_practicas" parent="control_acceso.menu_lab_principal" action="control_acceso.action_view_resultados_practicas" groups="control_acceso.res_groups_alumnos"/>
+<!--menu laboratorios-->
+<menuitem id="menu_laboratorio" parent="control_acceso.menu_horario" action="control_acceso.action_view_lab" groups="base.group_system,res_groups_administrador"/>
+<!--menu automaticamente-->
 
 </data>
 </odoo>

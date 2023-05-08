@@ -1,22 +1,22 @@
 <odoo>
 <data>
-<record id="registroasistencia_reporte" model="ir.actions.report">
-<field name="name">Reporte Asistencias Laboratorios</field>
-<field name="model">controlacceso.registroasistencia</field>
+<record id="registrointentoasistencia_reporte" model="ir.actions.report">
+<field name="name">Reporte Intento de Ingreso a los Laboratorios</field>
+<field name="model">controlacceso.registrointentoasistencia</field>
 <field name="report_type">qweb-html</field>
-<field name="report_name">control_acceso.report_registroasistencia</field>
-<field name="report_file">control_acceso.report_registroasistencia</field>
-<field name="binding_model_id" ref="control_acceso.model_controlacceso_registroasistencia"></field>
+<field name="report_name">control_acceso.report_registrointentoasistencia</field>
+<field name="report_file">control_acceso.report_registrointentoasistencia</field>
+<field name="binding_model_id" ref="control_acceso.model_controlacceso_registrointentoasistencia"></field>
 <field name="binding_type">report</field>
 </record>
 
-<template id="report_registroasistencia">
+<template id="report_registrointentoasistencia">
 
 <t t-call="web.html_container">
 
 <t t-call="web.external_layout">
 <center>
-<h1>Reporte de Ingresos al Laboratorio</h1>
+<h1>Reporte de Intento de Ingresos a los Laboratorios</h1>
 </center>
 <p class="text-right">Loja, <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d de %B del %Y')"/></p>
 <div clas="page">
@@ -40,12 +40,10 @@ table {
         <thead>
             <tr>
                 <th>Usuario</th>
-                <th>Hora ingreso</th>
-                <th>Fecha ingreso</th>
-                <th>Temperatura</th>
-             <!--   <th>Nro. tarjeta</th>-->
+                <th>Hora intento de ingreso</th>
+                <th>Fecha intento de ingreso</th>
+                <th>Nro. tarjeta</th>
                 <th>Lab</th>
-                <th>Ingresó al laboratorio</th>
             </tr>
             </thead>
                <tr t-foreach="docs" t-as="data">
@@ -53,10 +51,8 @@ table {
                     <th><t t-esc="data.name"/></th>
                     <th><t t-esc="data.hora_ingreso"/></th>
                     <th><t t-esc="data.fecha_ingreso"/></th>
-                    <th><t t-esc="data.temperatura"/></th>
-                 <!--   <th><t t-esc="data.tarjeta"/></th>-->
+                    <th><t t-esc="data.tarjeta"/></th>
                     <th><t t-esc="data.lab_id.name"/></th>
-                    <th><t t-esc="data.ingreso_usuario"/></th>
 
                            
    

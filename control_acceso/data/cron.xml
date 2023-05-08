@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<odoo>
+ 
+
+    <data>
+   <record id="control_plan_finalizado" model="ir.cron">
+     <field name="state">code</field>
+     <field name="code">model.actualizar_estado()</field>
+     <field name="interval_type">days</field>
+     <field name="name">Finalización Periodo Academico</field>
+     <field name="numbercall">-1</field>
+     <field name="doall">False</field>
+     <field name="active">True</field>
+     <field name="interval_number">1</field>
+     <field name="model_id" ref="control_acceso.model_controlacceso_periodoacademico"/>
+   </record>
+ </data>
+
+
+</odoo>

@@ -3,7 +3,7 @@
 <record id="practica_reporte" model="ir.actions.report">
 <field name="name">Reporte Practicas</field>
 <field name="model">controlacceso.practica</field>
-<field name="report_type">qweb-pdf</field>
+<field name="report_type">qweb-html</field>
 <field name="report_name">control_acceso.report_practica</field>
 <field name="report_file">control_acceso.report_practica</field>
 <field name="binding_model_id" ref="control_acceso.model_controlacceso_practica"></field>
@@ -22,16 +22,20 @@
 <div clas="page">
  <div style="font-family: 'arial', font-size: 16pt;
                                 color: #000000">
-<div class="form-group row" t-foreach="docs" t-as="d">
-<b lass="text-left">Tema practica: </b> <t t-esc="d.name"/><br/>
-<b lass="text-left">Fecha: </b> <t t-esc="d.fecha"/><br/>
+<div style="white-space: pre-line; line-height: 0.9em;" t-foreach="docs" t-as="d">
+<b class="text-left">Tema practica: </b> <t t-esc="d.name"/><br/>
+<b class="text-left">Fecha: </b> <t t-esc="d.fecha"/><br/>
+<t t-foreach="request.env['controlacceso.periodoacademico'].search([('id', '=', d.periodo_id.id)])" t-as="periodo">
+<b class="text-left">Periodo Academico: </b> <t t-esc="periodo.name"/><br/>
+</t>
 <t t-foreach="request.env['controlacceso.docente2'].search([('id', '=', d.docente_id.id)])" t-as="docente">
 <t t-foreach="request.env['res.users'].search([('id', '=', docente.name.id)])" t-as="nombre">
 <b class="text-left">Docente Responsable:</b><t t-esc="nombre.name"/><br/>
 </t>
 </t>
-<b class="text-left">laboratorio: </b><t t-esc="d.lab_id.name"/><br/>
+<b class="text-left">Laboratorio: </b><t t-esc="d.lab_id.nombre_lab"/><br/>
 <b class="text-left">Curso: </b><t t-esc="d.curso_id.name"/><br/>
+<b class="text-left">Materia: </b><t t-esc="d.materia_id.name"/><br/>
 </div>
 <table class="table table-striped" id="tablets">
         <thead>
@@ -40,18 +44,29 @@
                 <th>Hora ingreso</th>
                 <th>Fecha ingreso</th>
                 <th>Temperatura</th>
-                <th>Nro. tarjeta</th>
+                <th>Resultados</th>
             </tr>
             </thead>
-                <p t-foreach="docs" t-as="o">
-                <tr  t-foreach="request.env['controlacceso.registroasistencia'].search([('fecha_ingreso', '=', o.fecha),('curso_id', '=', o.curso_id.id) ])" t-as="data">
-                    <th><t t-esc="data.name"/></th>
-                    <th><t t-esc="data.hora_ingreso"/></th>
-                    <th><t t-esc="data.fecha_ingreso"/></th>
-                    <th><t t-esc="data.temperatura"/></th>
-                    <th><t t-esc="data.tarjeta"/></th>
-                </tr>
-                </p>
+               <p t-foreach="docs.sorted(key=lambda x: x.fecha)" t-as="o">
+<tr t-foreach="request.env['controlacceso.registroasistencia'].search([('fecha_ingreso', '=', o.fecha), ('curso_id', '=', o.curso_id.id), ('responsable', '!=', False)], order='name, id')" t-as="data">
+        <t t-if="data.name != previous_name">
+            <t t-set="previous_name" t-value="data.name"/>
+            <th><t t-esc="data.name"/></th>
+            <th><t t-esc="data.hora_ingreso"/></th>
+            <th><t t-esc="data.fecha_ingreso"/></th>
+            <th><t t-esc="data.temperatura"/></th>
+            <th>
+                <t t-if="request.env['controlacceso.resultados_practicas'].search_count([('estudiante_id.name', '=', data.name), ('practica_id', '=', o.id)]) &gt; 0">
+                    <i class="fa fa-check" style="color:green;"></i>
+                </t>
+                <t t-else="">
+                    <i class="fa fa-times" style="color:red;"></i>
+                </t>
+            </th>
+        </t>
+    </tr>
+</p>
+
             
     
             
